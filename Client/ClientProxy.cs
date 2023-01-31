@@ -21,6 +21,8 @@ namespace Client
 
         public ClientProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
+            Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+
             factory = this.CreateChannel();
             //Credentials.Windows.AllowNtlm = false;
         }

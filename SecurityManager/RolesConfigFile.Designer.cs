@@ -61,7 +61,7 @@ namespace SecurityManager {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See, Change,Delete.
+        ///   Looks up a localized string similar to See,Change,Delete.
         /// </summary>
         internal static string Editor {
             get {

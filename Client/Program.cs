@@ -14,7 +14,7 @@ namespace Client
         static void Main(string[] args)
         {
             NetTcpBinding binding = new NetTcpBinding();
-            string address = "net.tcp://localhost:9999/Server";
+            string address = "net.tcp://localhost:9999/Metode";
 
             binding.Security.Mode = SecurityMode.Transport;
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
@@ -22,6 +22,7 @@ namespace Client
 
             Console.WriteLine("Korisnik koji je pokrenuo klijenta :" + WindowsIdentity.GetCurrent().Name);
 
+         
             EndpointAddress endpointAddress = new EndpointAddress(new Uri(address),
                 EndpointIdentity.CreateUpnIdentity("wcfServer"));
 
@@ -29,10 +30,11 @@ namespace Client
             {
                 proxy.CreateFile("File");
                 
+                
             }
-
             ChannelFactory<IMetode> factory = new ChannelFactory<IMetode>(binding, address);
             IMetode channel = factory.CreateChannel();
+
 
             Console.ReadLine();
         }
