@@ -13,7 +13,7 @@ namespace Common
     {
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
-        void CreateFile(string fileName);
+        void CreateFile(string fileName, string folderName, string text);
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
@@ -37,6 +37,6 @@ namespace Common
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
-        bool MoveTo(string fileName, string folderName);
+        void MoveTo(string fileName, string folderName);
     }
 }

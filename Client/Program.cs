@@ -28,12 +28,16 @@ namespace Client
 
             using (ClientProxy proxy = new ClientProxy(binding, endpointAddress))
             {
-                proxy.CreateFile("File");
                 
-                
+                //proxy.CreateFolder("Folder5");
+                //proxy.CreateFile("test.txt", "Folder5", "text");
+                //proxy.Delete("test.txt");
+                proxy.MoveTo("test.txt", "Folder5");
+
+
             }
-            ChannelFactory<IMetode> factory = new ChannelFactory<IMetode>(binding, address);
-            IMetode channel = factory.CreateChannel();
+            //ChannelFactory<IMetode> factory = new ChannelFactory<IMetode>(binding, address);
+            //IMetode channel = factory.CreateChannel();
 
 
             Console.ReadLine();

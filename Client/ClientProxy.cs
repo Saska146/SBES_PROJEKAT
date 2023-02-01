@@ -29,11 +29,11 @@ namespace Client
 
 
 
-        public void CreateFile(string fileName)
+        public void CreateFile(string fileName, string folderName, string text)
         {
             try
             {
-                factory.CreateFile(fileName);
+                factory.CreateFile(fileName, folderName, text);
             }
             catch (FaultException<SecurityException> e)
             {
@@ -77,7 +77,7 @@ namespace Client
             }
         }
 
-        public bool MoveTo(string fileName, string folderName)
+        public void MoveTo(string fileName, string folderName)
         {
             try
             {
@@ -91,7 +91,6 @@ namespace Client
             {
                 Console.WriteLine("Error: {0}", e.Message);
             }
-            return false;
         }
 
         public string ReadFile(string fileName)
