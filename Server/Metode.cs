@@ -15,7 +15,7 @@ namespace Server
 {
     public class Metode : IMetode
     {
-        private static readonly string baseRoute = "C:\\Users\\danij\\OneDrive\\Radna površina\\PROJEKAT\\SBES_PROJEKAT\\Server\\ApplicationData";
+        private static readonly string baseRoute = "C:\\Users\\Saska\\OneDrive\\Desktop\\SBES_PROJEKAT\\SBES_PROJEKAT\\Server\\ApplicationData";
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Change")]
         public void CreateFile(string fileName, string folderName, string text)
@@ -118,7 +118,7 @@ namespace Server
 
                     string fileRouteNew = String.Format("{0}\\{1}\\{2}", baseRoute, folderName, fileName);
 
-                    System.IO.File.Move(fileRoute, fileRouteNew);
+                    File.Move(fileRoute, fileRouteNew);
                 }
                 catch (Exception e)
                 {
@@ -132,19 +132,68 @@ namespace Server
      
         public string ReadFile(string fileName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var fileFolderRoute = FindFolderRoute(fileName);
+
+                var fileRoute = String.Format("{0}\\{1}", fileFolderRoute, fileName);
+
+                var text = File.ReadAllText(fileRoute);
+
+                return text;
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<SecurityException>(new SecurityException(e.Message));
+            }
+           
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Change")]
-        public bool Rename(string currentFileName, string newFileName)
+        public void Rename(string currentFileName, string newFileName)
         {
-            throw new NotImplementedException();
+            IIdentity identity = Thread.CurrentPrincipal.Identity;
+            WindowsIdentity windowsIdentity = identity as WindowsIdentity;
+
+            using (windowsIdentity.Impersonate()) {
+                try
+                {
+                    var fileFolderRoute = FindFolderRoute(currentFileName);
+
+                    var fileRoute = String.Format("{0}\\{1}", fileFolderRoute, currentFileName);
+
+                    var fileRouteNew = String.Format("{0}\\{1}", fileFolderRoute, newFileName);
+
+                    File.Move(fileRoute, fileRouteNew);
+                }
+                catch (Exception e)
+                {
+                    throw new FaultException<SecurityException>(new SecurityException(e.Message));
+                }
+         
+            }
+            Console.WriteLine($"Process Identity :{WindowsIdentity.GetCurrent().Name}");
+
         }
 
-      
-        public (List<string> Files, List<string> Directories) ShowFolderContent(string folderName)
+
+        public List<string> ShowFolderContent(string folderName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string folderRoute = String.Format("{0}\\{1}", baseRoute, folderName); //dobavljamo rutu foldera
+
+                DirectoryInfo di = new DirectoryInfo(folderRoute); //directory info pomocna klasa na koju pozivamo get files
+
+                var files = di.GetFiles().Select(x => x.Name).ToList(); //vraca imena svih faljova u datoteci
+
+                return files;
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<SecurityException>(new SecurityException(e.Message));
+            }
+          
         }
 
         private string FindFolderRoute(string fileName)

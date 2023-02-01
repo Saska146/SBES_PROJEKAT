@@ -1,4 +1,5 @@
 ﻿using Common;
+using Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,17 @@ namespace Client
 
             using (ClientProxy proxy = new ClientProxy(binding, endpointAddress))
             {
-                
+
                 //proxy.CreateFolder("Folder5");
                 //proxy.CreateFile("test.txt", "Folder5", "text");
                 //proxy.Delete("test.txt");
-                proxy.MoveTo("test.txt", "Folder5");
-
+                // proxy.MoveTo("test.txt", "Folder5");
+                // proxy.Rename("test.txt", "test3.txt");
+                //Console.WriteLine(proxy.ReadFile("test3.txt"));
+                var met = new Metode();
+                var names = met.ShowFolderContent("Folder5");
+                foreach (var name in names)
+                    Console.WriteLine(name);
 
             }
             //ChannelFactory<IMetode> factory = new ChannelFactory<IMetode>(binding, address);

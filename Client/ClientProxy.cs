@@ -112,7 +112,7 @@ namespace Client
             return factory.ReadFile(fileName);
         }
 
-        public bool Rename(string currentFileName, string newFileName)
+        public void Rename(string currentFileName, string newFileName)
         {
             try
             {
@@ -126,14 +126,14 @@ namespace Client
             {
                 Console.WriteLine("Error: {0}", e.Message);
             }
-            return false;
+            
         }
 
-        public (List<string> Files, List<string> Directories) ShowFolderContent(string folderName)
+        public List<string> ShowFolderContent(string folderName)
         {
             try
             {
-                return factory.ShowFolderContent(folderName);
+                 factory.ShowFolderContent(folderName);
             }
             catch (FaultException<SecurityException> e)
             {
@@ -143,7 +143,7 @@ namespace Client
             {
                 Console.WriteLine("Error: {0}", e.Message);
             }
-            return (new List<string>(), new List<string>());
+               return (new List<string>());
         }
     }
 }

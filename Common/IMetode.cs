@@ -21,7 +21,7 @@ namespace Common
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
-        (List<string> Files, List<string> Directories) ShowFolderContent(string folderName);
+        List<string> ShowFolderContent(string folderName);
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
@@ -33,7 +33,7 @@ namespace Common
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
-        bool Rename(string currentFileName, string newFileName);
+        void Rename(string currentFileName, string newFileName);
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
