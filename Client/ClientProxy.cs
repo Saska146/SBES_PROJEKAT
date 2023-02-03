@@ -29,17 +29,30 @@ namespace Client
 
 
 
-        public void CreateFile(string fileName, string folderName, string text)
+        public void CreateFile(string fileName, string folderName, byte[] encryptedText)
         {
             try
             {
-                factory.CreateFile(fileName, folderName, text);
+                factory.CreateFile(fileName, folderName, encryptedText);
             }
             catch (FaultException<SecurityException> e)
             {
                 Console.WriteLine("Error: {0}", e.Detail.Message);
             }
             catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}", e.Message);
+            }
+        }
+
+        public void CreateFile(string fileName, string folderName, string text )
+        {
+            try
+            {
+                var arr = EncryptionMethods.EncryptText(text);
+                CreateFile(fileName, folderName, arr);
+            }
+            catch(Exception e)
             {
                 Console.WriteLine("Error: {0}", e.Message);
             }
@@ -93,11 +106,12 @@ namespace Client
             }
         }
 
-        public string ReadFile(string fileName)
+        public byte[] ReadFile(string fileName)
         {
+            byte[] encryptedData;
             try
             {
-                factory.ReadFile(fileName);
+                encryptedData = factory.ReadFile(fileName);
             }
             catch (FaultException<SecurityException> e)
             {
@@ -109,7 +123,14 @@ namespace Client
                 Console.WriteLine("Error: {0}", e.Message);
                 return null;
             }
-            return factory.ReadFile(fileName);
+            return encryptedData;
+        }
+
+        public string ReadFileText(string fileName)
+        {
+            var encrypted = ReadFile(fileName);
+            var decrypted = EncryptionMethods.DecrytpedText(encrypted);
+            return decrypted;
         }
 
         public void Rename(string currentFileName, string newFileName)

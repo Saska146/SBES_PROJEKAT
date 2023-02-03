@@ -15,10 +15,10 @@ namespace Server
 {
     public class Metode : IMetode
     {
-        private static readonly string baseRoute = "C:\\Users\\Saska\\OneDrive\\Desktop\\SBES_PROJEKAT\\SBES_PROJEKAT\\Server\\ApplicationData";
+        private static readonly string baseRoute = "C:\\Users\\danij\\OneDrive\\Radna površina\\SBES-PROJEKAT\\SBES_PROJEKAT\\Server\\ApplicationData";
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Change")]
-        public void CreateFile(string fileName, string folderName, string text)
+        public void CreateFile(string fileName, string folderName, byte[] encryptedArray)
         {
 
             // server kreira fajl u ime klijenta (implicitna impersonifikacija)
@@ -34,7 +34,9 @@ namespace Server
 
                     var fileRoute = Path.Combine(folderRoute, fileName);
 
-                    var buffer = Encoding.UTF8.GetBytes(text); //pretvaramo string u byte[] zbog write metode 
+                    var decryptedArray = EncryptionMethods.DecrytpedText(encryptedArray);
+                    
+                    var buffer = Encoding.UTF8.GetBytes(decryptedArray); //pretvaramo string u byte[] zbog write metode 
 
                     using (FileStream fOutput = new FileStream(fileRoute, FileMode.OpenOrCreate, FileAccess.Write))
                     {
@@ -130,7 +132,7 @@ namespace Server
         }
 
      
-        public string ReadFile(string fileName)
+        public byte[] ReadFile(string fileName)
         {
             try
             {
@@ -140,7 +142,8 @@ namespace Server
 
                 var text = File.ReadAllText(fileRoute);
 
-                return text;
+                var encryptedArray = EncryptionMethods.EncryptText(text);
+                return encryptedArray;
             }
             catch (Exception e)
             {

@@ -13,7 +13,7 @@ namespace Common
     {
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
-        void CreateFile(string fileName, string folderName, string text);
+        void CreateFile(string fileName, string folderName, byte[] encryptedArray);
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
@@ -25,7 +25,7 @@ namespace Common
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]
-        string ReadFile(string fileName);
+        byte[] ReadFile(string fileName);
 
         [OperationContract]
         [FaultContract(typeof(SecurityException))]

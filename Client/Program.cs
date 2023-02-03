@@ -31,16 +31,18 @@ namespace Client
             {
 
                 //proxy.CreateFolder("Folder5");
-                //proxy.CreateFile("test.txt", "Folder5", "text");
+                proxy.CreateFile("test11.txt", "Folder5", "text1");
                 //proxy.Delete("test.txt");
                 // proxy.MoveTo("test.txt", "Folder5");
                 // proxy.Rename("test.txt", "test3.txt");
                 //Console.WriteLine(proxy.ReadFile("test3.txt"));
+                /*
                 var met = new Metode();
                 var names = met.ShowFolderContent("Folder5");
                 foreach (var name in names)
                     Console.WriteLine(name);
-
+                */
+                //Console.WriteLine(proxy.ReadFileText("test3.txt"));
             }
             //ChannelFactory<IMetode> factory = new ChannelFactory<IMetode>(binding, address);
             //IMetode channel = factory.CreateChannel();
