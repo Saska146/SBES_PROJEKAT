@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.ServiceModel;
+using System.ServiceModel.Security;
 using System.Text;
 using System.Threading.Tasks;
 using SecurityException = Common.SecurityException;
@@ -152,9 +153,10 @@ namespace Client
 
         public List<string> ShowFolderContent(string folderName)
         {
+            List<string> result = new List<string>();
             try
             {
-                 factory.ShowFolderContent(folderName);
+                 result =  factory.ShowFolderContent(folderName);
             }
             catch (FaultException<SecurityException> e)
             {
@@ -164,7 +166,7 @@ namespace Client
             {
                 Console.WriteLine("Error: {0}", e.Message);
             }
-               return (new List<string>());
+            return result;
         }
     }
 }

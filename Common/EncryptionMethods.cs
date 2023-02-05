@@ -11,7 +11,7 @@ namespace Common
     public static class EncryptionMethods
     {
         // public static readonly string keyRoute = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory).FullName).FullName).FullName, "key.txt");
-        public static readonly string keyRoute = "C:\\Users\\danij\\OneDrive\\Radna površina\\SBES-PROJEKAT\\SBES_PROJEKAT\\key.txt";
+        public static readonly string keyRoute = "C:\\Users\\Saska\\OneDrive\\Desktop\\SBES_PROJEKAT\\SBES_PROJEKAT\\key.txt";
         private static readonly byte[] secretIv = Convert.FromBase64String("Jcb8G24OjbJ1NwHF47GR9A==");
 
 
