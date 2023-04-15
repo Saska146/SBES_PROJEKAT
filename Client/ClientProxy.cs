@@ -46,7 +46,7 @@ namespace Client
             }
         }
 
-        public void CreateFile(string fileName, string folderName, string text )
+        public void CreateFile(string fileName, string folderName, string text)
         {
             try
             {

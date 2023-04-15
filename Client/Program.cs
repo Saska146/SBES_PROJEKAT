@@ -115,7 +115,7 @@ namespace Client
 
                             if (folderContent.Count == 0)
                             {
-                                Console.WriteLine("Nema fajlova!");
+                                Console.WriteLine("Folder is empty!");
                             }
                             else
                             {
